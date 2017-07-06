@@ -1,0 +1,24 @@
+<!doctype html>
+<title>Simple tables</title>
+<div class=page>
+  <h1>Stocks</h1>
+  <table>
+      <tr>
+          <td>Time</td>
+          <td>Name</td>
+          <td>Price</td>
+          <td>Open</td>
+          <td>Close</td>
+          <td>Volume</td>
+      </tr>
+  {% for item in items %}
+      <tr>
+          <td>{{item[0]|datetimeformat}}</td>
+          <td>{{item[1]}}</td>
+          <td>{{item[2]}}</td>
+          <td>{{item[3]}}</td>
+          <td>{{item[4]}}</td>
+          <td>{{item[5]}}</td>
+      </tr>
+  {% endfor %}
+</div>
