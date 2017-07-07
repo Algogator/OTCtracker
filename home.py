@@ -18,18 +18,25 @@ app.add_template_filter(datetimeformat)
 # print(df.head())
 
 
-@app.route("/")
+@app.route("/",methods=['GET', 'POST'])
 def show_tables():
-    # Read sqlite query results into a pandas DataFrame
-
     con = sqlite3.connect("otc.db")
-    cursor = con.execute('SELECT * FROM company')
-    # data = pd.read_sql_query("SELECT * from company", con)
-    # con.close()
-    # data = pd.read_excel('dummy_data.xlsx')
-    # data.set_index(['ID'], inplace=True)
-    # data.index.name=None
-    return render_template('view.html',items=cursor.fetchall())
+    # Read sqlite query results into a pandas DataFrame
+    if request.method == 'GET':
+        cursor = con.execute('SELECT * FROM company')
+        # data = pd.read_sql_query("SELECT * from company", con)
+        # con.close()
+        # data = pd.read_excel('dummy_data.xlsx')
+        # data.set_index(['ID'], inplace=True)
+        # data.index.name=None
+        return render_template('view.html',items=cursor.fetchall())
+    else:
+        # print("Hi")
+        price = request.form['price']
+        volmin = request.form['numbermax'] or 0
+        volmin = request.form['numbermin'] or 0
+        cursor = con.execute('SELECT * FROM company where price <' + str(price))
+        return render_template('view.html',items=cursor.fetchall())
 
 if __name__ == "__main__":
     app.run(debug=True)
