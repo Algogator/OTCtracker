@@ -1,8 +1,24 @@
 <!doctype html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+</head>
 <title>Simple tables</title>
+<div class="container-fluid">
 <div class=page>
   <h1>Stocks</h1>
-  <table>
+
+  <form name="screener" action="/" method="post" class="form-inline">
+      <div class="form-group">
+          <label for="range">Price</label>
+      <input name="price" type="range" id="range" min="0" max="1" onchange="rangevalue.value=value" step="0.01"/>
+      <output id="rangevalue"></output>
+      <label>Volume</label>
+      <input name="numbermin" type="number"><input name="numbermax" type="number">
+      <input class="btn btn-default" type="submit" />
+  </div>
+  </form>
+<div class="table-responsive">
+  <table class="table table-striped">
       <tr>
           <td>Time</td>
           <td>Name</td>
@@ -21,4 +37,6 @@
           <td>{{item[5]}}</td>
       </tr>
   {% endfor %}
+</div>
+</div>
 </div>
