@@ -29,25 +29,25 @@ def downloadfile():
 
 def dfile():
     downloadfile()
-    conn = sqlite3.connect('otc.db')
-    cursor = conn.cursor()
-    count = 0
-    while not os.path.exists('/home/anna/Downloads/Stock_Screener.csv'):
-        print "Not found"
-        count += 1
-        if count == 4:
-            downloadfile()
-        time.sleep(5)
-    with open('/home/anna/Downloads/Stock_Screener.csv', 'rb') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            # stocks.append(str(row[0]))
-            print(row)
-            ts = time.time()
-            conn.execute("INSERT INTO STOCKS (ID,NAME,PRICE,OPEN,CLOSE,VOL)  VALUES ('"+str(uuid.uuid4())+"','"+row[0]+"', '"+row[3]+"', '0', '0', '"+row[5]+"')")
-    conn.commit()
-    conn.close()
-    os.remove('/home/anna/Downloads/Stock_Screener.csv')
+    # conn = sqlite3.connect('otc.db')
+    # cursor = conn.cursor()
+    # count = 0
+    # while not os.path.exists('/home/anna/Downloads/Stock_Screener.csv'):
+    #     print "Not found"
+    #     count += 1
+    #     if count == 4:
+    #         downloadfile()
+    #     time.sleep(5)
+    # with open('/home/anna/Downloads/Stock_Screener.csv', 'rb') as f:
+    #     reader = csv.reader(f)
+    #     for row in reader:
+    #         # stocks.append(str(row[0]))
+    #         print(row)
+    #         ts = time.time()
+    #         conn.execute("INSERT INTO STOCKS (ID,NAME,PRICE,OPEN,CLOSE,VOL)  VALUES ('"+str(uuid.uuid4())+"','"+row[0]+"', '"+row[3]+"', '0', '0', '"+row[5]+"')")
+    # conn.commit()
+    # conn.close()
+    # os.remove('/home/anna/Downloads/Stock_Screener.csv')
 
 while True:
     dfile()
