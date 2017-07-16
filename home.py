@@ -18,6 +18,19 @@ app.add_template_filter(datetimeformat)
 # print(df.head())
 
 
+@app.route("/data/<name>")
+def show_data(name):
+    con = sqlite3.connect("otc.db")
+    # Read sqlite query results into a pandas DataFrame
+    cursor = con.execute("SELECT * FROM company where name='"+name+"'")
+    # data = pd.read_sql_query("SELECT * from company", con)
+    # con.close()
+    # data = pd.read_excel('dummy_data.xlsx')
+    # data.set_index(['ID'], inplace=True)
+    # data.index.name=None
+    return render_template('view.html',items=cursor.fetchall())
+
+
 @app.route("/",methods=['GET', 'POST'])
 def show_tables():
     con = sqlite3.connect("otc.db")
@@ -39,4 +52,4 @@ def show_tables():
         return render_template('view.html',items=cursor.fetchall())
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host= '0.0.0.0', debug=True)

@@ -30,7 +30,7 @@
   {% for item in items %}
       <tr>
           <td>{{item[0]|datetimeformat}}</td>
-          <td>{{item[1]}}</td>
+          <td><a href="{{''.join(['/data/', item[1]])}}">{{item[1]}}</a></td>
           <td>{{item[2]}}</td>
           <td>{{item[3]}}</td>
           <td>{{item[4]}}</td>

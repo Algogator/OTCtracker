@@ -33,16 +33,10 @@ def getPrices(name):
 
         conn.execute("INSERT INTO COMPANY (ID,NAME,PRICE,OPEN,CLOSE,VOL) VALUES ("+str(ts)+",'"+ name +"'," + str(price) +","+ str(open) +"," + str(close) +"," + str(vol) +" )")
         conn.commit()
-        print "Records created successfully", name
+        # print "Records created successfully", name
     except Exception:
         print "Can't get an element"
 
-def worker(queue):
-    while not queue.empty():
-        task = queue.get()
-        getPrices(task)
-        # now start to work on your task
-        # get_browser_and_start(url,nlp,pixel)
 
 stocks = []
 with open('/home/anna/Downloads/Stock_Screener.csv', 'rb') as f:
@@ -53,22 +47,16 @@ with open('/home/anna/Downloads/Stock_Screener.csv', 'rb') as f:
         stocks.append(row[0])
         # print(stocks)
 print(len(stocks))
-queue = Queue()
+
 
 while True:
     conn = sqlite3.connect('otc.db')
-    for i in stocks:
-        queue.put(i)
-    # for i in stocks:
-    #     getPrices(i)
-        # print(i)
-    process = Process(target=worker, args=(queue, ))
     start_time = time.time()
-    process.start()
-    process.join()
+    for i in stocks:
+        getPrices(i)
     conn.close()
     print("--- %s seconds ---" % (time.time() - start_time))
-    time.sleep(900) #900
+
     # myElem = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, 'price')))
 
 
