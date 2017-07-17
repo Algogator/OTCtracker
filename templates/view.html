@@ -21,15 +21,15 @@
   <table class="table table-striped">
       <tr>
           <td>Time</td>
-          <td>Name</td>
-          <td>Price</td>
-          <td>Open</td>
-          <td>Close</td>
-          <td>Volume</td>
+          <td><a href="/?sort=name">Name</a></td>
+          <td><a href="/?sort=price">Price</a></td>
+          <td><a href="/?sort=open">Open</a></td>
+          <td><a href="/?sort=close">Close</a></td>
+          <td><a href="/?sort=vol">Volume</a></td>
       </tr>
   {% for item in items %}
       <tr>
-          <td>{{item[0]|datetimeformat}}</td>
+          <td>{{item[6]}}</td>
           <td><a href="{{''.join(['/data/', item[1]])}}">{{item[1]}}</a></td>
           <td>{{item[2]}}</td>
           <td>{{item[3]}}</td>

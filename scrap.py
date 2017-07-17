@@ -15,7 +15,12 @@ driver = webdriver.Chrome()
 
 def getPrices(name):
     url = 'https://www.otcmarkets.com/stock/'+name+'/quote'
-    driver.get(url)
+    try:
+        driver.get(url)
+    except Exception as e:
+        print(e)
+        driver = webdriver.Chrome()
+        driver.get(url)
     # driver.refresh()
     try:
         price = driver.find_element_by_class_name('price')
